@@ -1,196 +1,141 @@
 <div align="center">
 
-# RACING HELMET MOTION
+<p>
+  <strong>English</strong> · <a href="./README.zh-CN.md">简体中文</a>
+</p>
 
-### 赛车头盔动态人像 · Interactive Portrait Agent Skill
+# Racing Helmet Motion
 
-**保留真实的人，让头盔与光影开始流动**<br>
-**Keep the person real. Let the helmet and light move.**
+**A cinematic racing-helmet reveal for real portraits, packaged as an Agent Skill**
 
-[![Agent Skill](https://img.shields.io/badge/Agent-Skill-e8edf0?style=flat-square&labelColor=080a0c&color=cad4da)](SKILL.md)
-[![WebGL](https://img.shields.io/badge/WebGL-Native-e8edf0?style=flat-square&labelColor=080a0c&color=cad4da)](assets/reference-renderer/portrait-renderer.js)
-[![Runtime dependencies](https://img.shields.io/badge/runtime_dependencies-0-e8edf0?style=flat-square&labelColor=080a0c&color=cad4da)](assets/integration/portrait-adapter.js)
-[![License: MIT](https://img.shields.io/badge/license-MIT-e8edf0?style=flat-square&labelColor=080a0c&color=cad4da)](LICENSE)
+Original-color portrait · autonomous helmet flow · local pointer ripples · restrained pose response
 
-[安装 / Install](#install) · [中文](#中文) · [English](#english) · [Archer 在线效果](https://www.archeroy.io/index.html) · [灵感来源：Lando Norris](https://landonorris.com/)
+[![Agent Skill](https://img.shields.io/badge/Agent-Skill-e8edf0?style=flat-square&labelColor=080a0c&color=cad4da)](./SKILL.md)
+[![Vanilla JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-e8edf0?style=flat-square&labelColor=080a0c&color=cad4da)](./assets/integration/portrait-adapter.js)
+[![WebGL](https://img.shields.io/badge/WebGL-Native-e8edf0?style=flat-square&labelColor=080a0c&color=cad4da)](./assets/reference-renderer/portrait-renderer.js)
+[![MIT License](https://img.shields.io/badge/License-MIT-e8edf0?style=flat-square&labelColor=080a0c&color=cad4da)](./LICENSE)
+
+[Live demo](https://www.archeroy.io/index.html) · [Install](#install) · [See how it works](#how-it-works) · [Read the Skill](./SKILL.md)
 
 <a href="https://www.archeroy.io/index.html">
-  <img src="docs/media/archer-helmet-motion.webp" width="720" alt="Archer 网站上的赛车头盔动态人像：头盔虚影与流动色彩掠过彩色人像">
+  <img src="docs/media/archer-helmet-motion.webp" width="760" alt="Racing helmet ghost and flowing color moving across Archer's original-color portrait">
 </a>
 
-<sub>Archer 的实际网页效果 · Live capture from Archer's implementation</sub>
+<sub>Captured from Archer's live implementation — move the pointer on the website to see the full interaction</sub>
 
 </div>
 
 ---
 
-<a id="install"></a>
+Racing Helmet Motion teaches coding agents to build the effect as a set of registered, independent layers. The portrait stays recognizable while a helmet ghost emerges from crown to chin, an automatic reveal keeps moving without input, and a localized pointer wake responds without cancelling it.
 
-## Install · 安装
+## Install
 
-**通用安装方式 · Universal Agent Skills CLI**
+Install with the cross-agent Skills CLI:
 
 ```bash
 npx skills add archerthegoat/racing-helmet-motion
 ```
 
-该命令会发现仓库根目录中的 `SKILL.md`，并让你选择 Codex、Claude Code、Cursor 等支持的 Agent 和安装范围。需要本机已有 Node.js 与 npm
+The CLI discovers the root-level `SKILL.md` and lets you choose a supported agent and installation scope. Node.js and npm are required.
 
-This command discovers the root-level `SKILL.md` and lets you choose a supported agent and installation scope. Node.js and npm are required
-
-<details>
-<summary>指定 Codex、对话安装与手动安装 · Codex options and manual fallback</summary>
-
-仅安装到 Codex：
-
-```bash
-npx skills add archerthegoat/racing-helmet-motion --agent codex
-```
-
-加上 `--global` 可以安装到用户级目录，让所有项目使用：
+For a user-level Codex installation:
 
 ```bash
 npx skills add archerthegoat/racing-helmet-motion --agent codex --global
 ```
 
-也可以直接在 Codex 对话中输入下面这句话。这里的 `$skill-installer` 是 Codex Skill 调用，**不是终端命令**：
+<details>
+<summary>Install from inside a Codex conversation</summary>
+
+Enter this in Codex as a message, not in a terminal:
 
 ```text
 $skill-installer install https://github.com/archerthegoat/racing-helmet-motion
 ```
 
-You can also enter the line above in a Codex conversation. It invokes Codex's bundled `skill-installer`; it is **not a shell command**
-
-手动安装 · Manual fallback:
-
-```bash
-git clone https://github.com/archerthegoat/racing-helmet-motion.git \
-  "${CODEX_HOME:-$HOME/.codex}/skills/racing-helmet-motion"
-```
-
-If the destination already exists, update or remove that existing installation before reinstalling. Restart the target agent if the newly installed Skill does not appear immediately
+`$skill-installer` invokes Codex's bundled installer. Restart the target agent if the newly installed Skill does not appear immediately.
 
 </details>
 
-调用 · Invoke:
+## Try it
+
+Give your coding agent the portrait and helmet assets, then ask:
 
 ```text
-Use $racing-helmet-motion to build a subtle racing-helmet reveal around this portrait.
+Use the racing-helmet-motion skill to build a subtle helmet reveal around this portrait.
+Keep the person in original color, fit the helmet before tuning motion, and keep
+the automatic flow independent from the pointer response.
 ```
 
----
+Start with assets that you own or are licensed to use:
 
-## 中文
+1. A transparent, original-color portrait
+2. A transparent color helmet image or licensed model render
+3. A matching transparent helmet ghost or wireframe
 
-这是一个专门制作**赛车头盔动态人像**的 Agent Skill
+## How it works
 
-它保留人物原本的彩色样貌与比例，把头盔虚影、自动流动显影、鼠标水纹和人物轻微转向拆成独立层，让动效有呼吸感，又不会把脸变成夸张的 3D 模型
-
-### 动效由什么组成
-
-| 层 | 作用 |
+| Layer | Behavior |
 |---|---|
-| 彩色人像 | 始终保留真实人物，提供静态降级 |
-| 头盔虚影 | 从头顶向面罩与下颌缓慢浮现，并保持微弱流动 |
-| 自动显影 | 无需操作也会自行经过，形状、宽度与节奏不断变化 |
-| 鼠标水纹 | 只在指针附近产生局部响应，不会顶掉自动显影 |
-| 轻微转向 | 整张人像克制地跟随鼠标，再平滑回到原位 |
+| **Portrait** | Preserves the person's color, proportions, and recognizable features |
+| **Helmet ghost** | Reveals from the crown toward the visor and chin with faint material motion |
+| **Automatic flow** | Crosses the helmet on its own with changing shape, cadence, and decay |
+| **Pointer wake** | Produces small, local ripples without interrupting the automatic pass |
+| **Pose response** | Turns the whole portrait within a restrained range and returns smoothly |
 
-### 灵感来源与独立实现
+The renderer separates autonomous motion, pointer response, helmet presence, and portrait pose into different timelines. This separation is what keeps the interaction fluid when the pointer moves.
 
-视觉与交互方向受到 [Lando Norris 官方网站](https://landonorris.com/)公开人像体验的启发，重点参考了头盔虚影由上至下出现、显影自行掠过，以及鼠标响应与自动动效彼此独立的关系
+## Build sequence
 
-本仓库是重新设计并独立编写的实现，没有复制 Lando Norris 网站的源代码、模型、图片或其他媒体，也不代表与 Lando Norris 或其团队存在合作、授权或背书关系
+1. **Register the media** — align the crown, visor, face opening, and chin in a static composite
+2. **Shape the helmet presence** — establish the faint top-to-bottom ghost before adding stronger motion
+3. **Tune independent flows** — adjust the automatic reveal and pointer wake separately, then test them together
+4. **Integrate page lifecycle** — add static fallback, reduced motion, pause, offscreen, hidden-page, and resume behavior
+5. **Inspect in a real browser** — watch idle motion, pointer motion, overlap, pointer leave, pause, and recovery continuously
 
-上方动画来自 [Archer 的个人网站](https://www.archeroy.io/index.html)，展示的是这个 Skill 所沉淀方法的实际效果。仓库发布的是渲染结果、方法、代码与接入示例，不包含 Archer 的人像原图或项目使用的头盔输入素材
+Detailed guidance lives in the [effect contract](./references/effect-contract.md), [asset registration guide](./references/asset-registration.md), and [integration and QA guide](./references/integration-and-qa.md).
 
-### 使用前准备
+## What ships
 
-准备三张彼此对齐、且有权使用的素材：
+```text
+racing-helmet-motion/
+├── SKILL.md                         Agent instructions and workflow
+├── assets/
+│   ├── reference-renderer/          Frozen accepted WebGL renderer
+│   └── integration/                 Dependency-free page adapter and CSS
+├── references/                      Effect, registration, and QA guidance
+├── scripts/verify-reference-kit.mjs Renderer integrity check
+└── docs/media/                      Rendered demonstration preview
+```
 
-1. 透明背景的原色人像
-2. 透明背景的彩色头盔图或授权模型渲染图
-3. 与彩色头盔视角和轮廓一致的透明虚影或线框图
+The reference renderer uses native JavaScript and WebGL with no third-party runtime dependency. Its registration constants match the bundled reference layout; new media still needs a deliberate fit.
 
-先阅读 [SKILL.md](SKILL.md)。它会依次引导素材配准、动效结构、接入方式和浏览器验收
-
-参考渲染器位于 [`assets/reference-renderer/`](assets/reference-renderer/)，网页接入示例位于 [`assets/integration/`](assets/integration/)。两部分都使用原生 JavaScript，不需要第三方运行依赖
-
-### 验证
+## Verify
 
 ```bash
-python3 /path/to/skill-creator/scripts/quick_validate.py .
 node scripts/verify-reference-kit.mjs
 node --check assets/reference-renderer/portrait-renderer.js
 node --check assets/reference-renderer/auto-reveal-field.js
 node --check assets/integration/portrait-adapter.js
 ```
 
-第一条命令使用 Codex `skill-creator` 自带的校验器，具体路径取决于本机安装位置。哈希与语法检查只能证明代码与参考版本一致，最终质感仍需在真实浏览器中连续观看
+These checks establish source integrity and JavaScript syntax. Final motion quality still requires continuous inspection in a real browser.
 
----
+## Inspiration and authorship
 
-## English
+The interaction direction was inspired by the public portrait experience on the [official Lando Norris website](https://landonorris.com/), especially its top-to-bottom helmet presence, autonomous reveal, and separation between pointer response and ambient motion.
 
-This Agent Skill builds a focused **racing-helmet portrait interaction**
+This repository is an independently designed and written implementation. It includes no source code, model, image, or other media copied from that website and has no affiliation with, authorization from, or endorsement by Lando Norris or his team.
 
-It keeps the portrait in its original color and proportions, then separates the helmet ghost, autonomous reveal, localized pointer wake, and restrained pose response into independent motion layers. The result can feel alive without turning a flat portrait into exaggerated pseudo-3D
+The preview above comes from [Archer's personal website](https://www.archeroy.io/index.html). The repository publishes the rendered demonstration, method, code, and integration examples while keeping Archer's source portrait and project helmet inputs outside the package.
 
-### Motion layers
+## Asset boundary
 
-| Layer | Purpose |
-|---|---|
-| Color portrait | Keeps the person recognizable and provides the static fallback |
-| Helmet ghost | Appears from crown to visor and chin while retaining faint material motion |
-| Automatic reveal | Runs without input and varies its fragments, width, cadence, and decay |
-| Pointer wake | Responds locally around the pointer without cancelling the automatic pass |
-| Subtle pose | Turns the whole portrait within a small range, then returns smoothly |
+The package does not bundle reusable source portraits, helmet models or images, or extracted racing-team and sponsor artwork. The animated WebP is a rendered demonstration, not an input asset or a grant to reuse anything depicted in it. Third-party names, logos, and trade dress visible in the demonstration remain the property of their respective owners.
 
-### Inspiration and independent implementation
+## Publisher
 
-The visual and interaction direction was inspired by the public portrait experience on the [official Lando Norris website](https://landonorris.com/), especially its top-to-bottom helmet presence, self-running reveal, and separation between pointer response and autonomous motion
+Created and published by **Archer** · [@archerthegoat](https://github.com/archerthegoat) · [archeroy.io](https://www.archeroy.io/)
 
-This repository is an independently designed and written implementation. It contains no source code, model, image, or other media copied from the Lando Norris website, and it is not affiliated with, authorized by, or endorsed by Lando Norris or his team
-
-The animation above is captured from [Archer's personal website](https://www.archeroy.io/index.html) and shows the approach in a real page. This repository publishes the rendered preview, method, implementation, and integration examples while keeping Archer's source portrait and project helmet inputs out of the package
-
-### Inputs
-
-Prepare three aligned assets that you own or are licensed to use:
-
-1. a transparent, original-color portrait
-2. a transparent color helmet image or a render from a licensed model
-3. a matching transparent ghost or wireframe view
-
-Start with [SKILL.md](SKILL.md). It routes the work through media registration, motion structure, integration, and browser QA
-
-The frozen reference renderer lives in [`assets/reference-renderer/`](assets/reference-renderer/). The dependency-free page adapter lives in [`assets/integration/`](assets/integration/)
-
-### Verify
-
-```bash
-python3 /path/to/skill-creator/scripts/quick_validate.py .
-node scripts/verify-reference-kit.mjs
-node --check assets/reference-renderer/portrait-renderer.js
-node --check assets/reference-renderer/auto-reveal-field.js
-node --check assets/integration/portrait-adapter.js
-```
-
-The first command uses the validator bundled with Codex's `skill-creator`; its path depends on the local installation. Hash and syntax checks establish package integrity, while the final visual quality still requires continuous inspection in a real browser
-
----
-
-## Asset boundary · 素材边界
-
-The public package does **not** bundle reusable source portraits, helmet models or images, or extracted racing-team and sponsor artwork. The animated WebP is a rendered demonstration capture, not an input asset or a grant to reuse anything depicted in it. Supply project assets with verified reuse rights and keep private portraits local unless their owner authorizes publication
-
-公开仓库**不打包**可复用的人像原图、头盔模型或图片，也不提供提取出的车队与赞助商图案。动态 WebP 是渲染后的效果演示，不是输入素材，也不授予其中内容的复用权。项目使用者需要自行准备并核对素材权利；私人照片未经本人授权不得发布
-
-Third-party names, logos, and trade dress visible in the demonstration remain the property of their respective owners and appear only as part of the recorded implementation
-
-## Publisher · 发布者
-
-Created and published by **Archer** · [@archerthegoat](https://github.com/archerthegoat)<br>
-由 **Archer** 创建并发布 · [archeroy.io](https://www.archeroy.io/)
-
-MIT License · Copyright © 2026 Archer
+Released under the [MIT License](./LICENSE) · Copyright © 2026 Archer
