@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: "Archer (@archerthegoat)"
   publisher: "Archer"
-  version: "1.0.0"
+  version: "1.0.1"
   repository: "https://github.com/archerthegoat/racing-helmet-motion"
   demo: "https://www.archeroy.io/index.html"
   inspiration: "https://landonorris.com/"

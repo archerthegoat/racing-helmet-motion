@@ -12,15 +12,60 @@
 [![Runtime dependencies](https://img.shields.io/badge/runtime_dependencies-0-e8edf0?style=flat-square&labelColor=080a0c&color=cad4da)](assets/integration/portrait-adapter.js)
 [![License: MIT](https://img.shields.io/badge/license-MIT-e8edf0?style=flat-square&labelColor=080a0c&color=cad4da)](LICENSE)
 
-[中文](#中文) · [English](#english) · [Archer 在线效果](https://www.archeroy.io/index.html) · [灵感来源：Lando Norris](https://landonorris.com/)
+[安装 / Install](#install) · [中文](#中文) · [English](#english) · [Archer 在线效果](https://www.archeroy.io/index.html) · [灵感来源：Lando Norris](https://landonorris.com/)
 
 <a href="https://www.archeroy.io/index.html">
-  <img src="docs/media/archer-helmet-motion.gif" width="720" alt="Archer 网站上的赛车头盔动态人像：头盔虚影与流动色彩掠过彩色人像">
+  <img src="docs/media/archer-helmet-motion.webp" width="720" alt="Archer 网站上的赛车头盔动态人像：头盔虚影与流动色彩掠过彩色人像">
 </a>
 
 <sub>Archer 的实际网页效果 · Live capture from Archer's implementation</sub>
 
 </div>
+
+---
+
+<a id="install"></a>
+
+## Install · 安装
+
+**推荐方式：直接在 Codex 中输入 · Recommended: enter this in Codex**
+
+```text
+$skill-installer install https://github.com/archerthegoat/racing-helmet-motion
+```
+
+Codex 会把仓库根目录作为 `racing-helmet-motion` 安装到本地 Skills 目录。安装完成后重启 Codex，新任务中即可使用
+
+Codex installs the repository root as `racing-helmet-motion` in the local Skills directory. Restart Codex after installation; the Skill will be available in the next task
+
+<details>
+<summary>安装器命令与手动安装 · Installer command and manual fallback</summary>
+
+使用 Codex 自带安装器：
+
+```bash
+python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
+  --repo archerthegoat/racing-helmet-motion \
+  --path . \
+  --name racing-helmet-motion
+```
+
+Manual fallback:
+
+```bash
+git clone https://github.com/archerthegoat/racing-helmet-motion.git \
+  "${CODEX_HOME:-$HOME/.codex}/skills/racing-helmet-motion"
+```
+
+If the destination already exists, update or remove that existing installation before reinstalling. Restart Codex after either method
+
+</details>
+
+调用 · Invoke:
+
+```text
+Use $racing-helmet-motion to build a subtle racing-helmet reveal around this portrait.
+```
 
 ---
 
@@ -47,20 +92,6 @@
 本仓库是重新设计并独立编写的实现，没有复制 Lando Norris 网站的源代码、模型、图片或其他媒体，也不代表与 Lando Norris 或其团队存在合作、授权或背书关系
 
 上方动画来自 [Archer 的个人网站](https://www.archeroy.io/index.html)，展示的是这个 Skill 所沉淀方法的实际效果。仓库发布的是渲染结果、方法、代码与接入示例，不包含 Archer 的人像原图或项目使用的头盔输入素材
-
-### 安装
-
-让 Codex 从这个仓库安装 Skill，或直接克隆到本地 Skill 目录：
-
-```bash
-git clone https://github.com/archerthegoat/racing-helmet-motion.git ~/.codex/skills/racing-helmet-motion
-```
-
-在任务中使用：
-
-```text
-Use $racing-helmet-motion to build a subtle racing-helmet reveal around this portrait.
-```
 
 ### 使用前准备
 
@@ -112,20 +143,6 @@ This repository is an independently designed and written implementation. It cont
 
 The animation above is captured from [Archer's personal website](https://www.archeroy.io/index.html) and shows the approach in a real page. This repository publishes the rendered preview, method, implementation, and integration examples while keeping Archer's source portrait and project helmet inputs out of the package
 
-### Install
-
-Ask Codex to install this repository as a Skill, or clone it into the local Skill directory:
-
-```bash
-git clone https://github.com/archerthegoat/racing-helmet-motion.git ~/.codex/skills/racing-helmet-motion
-```
-
-Invoke it with:
-
-```text
-Use $racing-helmet-motion to build a subtle racing-helmet reveal around this portrait.
-```
-
 ### Inputs
 
 Prepare three aligned assets that you own or are licensed to use:
@@ -154,9 +171,9 @@ The first command uses the validator bundled with Codex's `skill-creator`; its p
 
 ## Asset boundary · 素材边界
 
-The public package does **not** bundle reusable source portraits, helmet models or images, or extracted racing-team and sponsor artwork. The GIF is a rendered demonstration capture, not an input asset or a grant to reuse anything depicted in it. Supply project assets with verified reuse rights and keep private portraits local unless their owner authorizes publication
+The public package does **not** bundle reusable source portraits, helmet models or images, or extracted racing-team and sponsor artwork. The animated WebP is a rendered demonstration capture, not an input asset or a grant to reuse anything depicted in it. Supply project assets with verified reuse rights and keep private portraits local unless their owner authorizes publication
 
-公开仓库**不打包**可复用的人像原图、头盔模型或图片，也不提供提取出的车队与赞助商图案。GIF 是渲染后的效果演示，不是输入素材，也不授予其中内容的复用权。项目使用者需要自行准备并核对素材权利；私人照片未经本人授权不得发布
+公开仓库**不打包**可复用的人像原图、头盔模型或图片，也不提供提取出的车队与赞助商图案。动态 WebP 是渲染后的效果演示，不是输入素材，也不授予其中内容的复用权。项目使用者需要自行准备并核对素材权利；私人照片未经本人授权不得发布
 
 Third-party names, logos, and trade dress visible in the demonstration remain the property of their respective owners and appear only as part of the recorded implementation
 
