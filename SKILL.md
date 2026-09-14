@@ -7,11 +7,15 @@ metadata:
   publisher: "Archer"
   version: "1.0.0"
   repository: "https://github.com/archerthegoat/racing-helmet-motion"
+  demo: "https://www.archeroy.io/index.html"
+  inspiration: "https://landonorris.com/"
 ---
 
 # Racing Helmet Motion
 
 Create the portrait effect as a layered illusion: preserve the real person, register the helmet around the head, and let color, wireframe, water, and pose move on separate timelines. Use the included renderer as a tested reference implementation, not as proof of a real 3D scan or of another site's internal algorithm.
+
+The interaction direction was inspired by the public portrait experience on the [official Lando Norris website](https://landonorris.com/). This Skill is an independent implementation and includes none of that site's source code or media. When presenting the result, describe the website as inspiration and the rendered effect as the user's own implementation; do not imply affiliation, endorsement, or exact reproduction.
 
 ## Preserve the effect contract
 
