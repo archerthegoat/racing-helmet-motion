@@ -28,36 +28,47 @@
 
 ## Install · 安装
 
-**推荐方式：直接在 Codex 中输入 · Recommended: enter this in Codex**
+**通用安装方式 · Universal Agent Skills CLI**
+
+```bash
+npx skills add archerthegoat/racing-helmet-motion
+```
+
+该命令会发现仓库根目录中的 `SKILL.md`，并让你选择 Codex、Claude Code、Cursor 等支持的 Agent 和安装范围。需要本机已有 Node.js 与 npm
+
+This command discovers the root-level `SKILL.md` and lets you choose a supported agent and installation scope. Node.js and npm are required
+
+<details>
+<summary>指定 Codex、对话安装与手动安装 · Codex options and manual fallback</summary>
+
+仅安装到 Codex：
+
+```bash
+npx skills add archerthegoat/racing-helmet-motion --agent codex
+```
+
+加上 `--global` 可以安装到用户级目录，让所有项目使用：
+
+```bash
+npx skills add archerthegoat/racing-helmet-motion --agent codex --global
+```
+
+也可以直接在 Codex 对话中输入下面这句话。这里的 `$skill-installer` 是 Codex Skill 调用，**不是终端命令**：
 
 ```text
 $skill-installer install https://github.com/archerthegoat/racing-helmet-motion
 ```
 
-Codex 会把仓库根目录作为 `racing-helmet-motion` 安装到本地 Skills 目录。安装完成后重启 Codex，新任务中即可使用
+You can also enter the line above in a Codex conversation. It invokes Codex's bundled `skill-installer`; it is **not a shell command**
 
-Codex installs the repository root as `racing-helmet-motion` in the local Skills directory. Restart Codex after installation; the Skill will be available in the next task
-
-<details>
-<summary>安装器命令与手动安装 · Installer command and manual fallback</summary>
-
-使用 Codex 自带安装器：
-
-```bash
-python3 "${CODEX_HOME:-$HOME/.codex}/skills/.system/skill-installer/scripts/install-skill-from-github.py" \
-  --repo archerthegoat/racing-helmet-motion \
-  --path . \
-  --name racing-helmet-motion
-```
-
-Manual fallback:
+手动安装 · Manual fallback:
 
 ```bash
 git clone https://github.com/archerthegoat/racing-helmet-motion.git \
   "${CODEX_HOME:-$HOME/.codex}/skills/racing-helmet-motion"
 ```
 
-If the destination already exists, update or remove that existing installation before reinstalling. Restart Codex after either method
+If the destination already exists, update or remove that existing installation before reinstalling. Restart the target agent if the newly installed Skill does not appear immediately
 
 </details>
 
