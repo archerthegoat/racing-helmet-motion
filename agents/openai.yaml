@@ -1,0 +1,5 @@
+interface:
+  display_name: "Racing Helmet Motion"
+  short_description: "构建彩色人像、赛车头盔虚影、自动流片与鼠标水纹特效"
+  brand_color: "#0A0D11"
+  default_prompt: "Use $racing-helmet-motion to build a subtle racing-helmet reveal effect around this portrait."

@@ -1,0 +1,59 @@
+.helmet-portrait {
+  position: relative;
+  width: min(720px, 100%);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #050607;
+  isolation: isolate;
+}
+
+.helmet-portrait__canvas,
+.helmet-portrait__stage,
+.helmet-portrait__fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.helmet-portrait__canvas {
+  z-index: 2;
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+.helmet-portrait__canvas.is-ready { opacity: 1; }
+.helmet-portrait__stage { z-index: 3; outline: none; }
+.helmet-portrait__stage:focus-visible { box-shadow: inset 0 0 0 1px #dbe5ea; }
+.helmet-portrait__fallback { object-fit: contain; object-position: center bottom; }
+
+.helmet-portrait__controls {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 4;
+  display: flex;
+  gap: 8px;
+}
+
+.helmet-portrait__controls button {
+  min-height: 36px;
+  border: 1px solid #8798a55c;
+  border-radius: 999px;
+  padding: 0 14px;
+  color: #e8eef2;
+  background: #080b0ed9;
+}
+
+.helmet-portrait__status {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  z-index: 4;
+  color: #aeb9c1;
+  font: 12px/1.5 ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .helmet-portrait__canvas { transition: none; }
+}

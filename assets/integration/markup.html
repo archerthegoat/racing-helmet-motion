@@ -1,0 +1,18 @@
+<div
+  class="helmet-portrait"
+  data-helmet-portrait
+  data-photo="assets/portrait-color.webp"
+  data-helmet="assets/racing-helmet.png"
+  data-ghost="assets/racing-helmet-ghost.png"
+>
+  <canvas class="helmet-portrait__canvas" aria-hidden="true"></canvas>
+  <div class="helmet-portrait__stage" data-portrait-stage role="group" aria-label="互动赛车头盔人像" tabindex="0">
+    <img class="helmet-portrait__fallback" data-portrait-fallback src="assets/portrait-color.webp" width="1200" height="1600" alt="人物彩色半身人像">
+  </div>
+  <div class="helmet-portrait__controls">
+    <button type="button" data-portrait-demo>演示显影</button>
+    <button type="button" data-portrait-full aria-pressed="false">完整头盔</button>
+    <button type="button" data-portrait-pause aria-label="暂停人像动效" aria-pressed="false">暂停</button>
+  </div>
+  <p class="helmet-portrait__status" data-portrait-status hidden>人像动效暂未加载</p>
+</div>
